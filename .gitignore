@@ -1,0 +1,21 @@
+# Visual Studio
+.vs/
+
+# Build folders
+bin/
+obj/
+
+# User files
+*.user
+*.suo
+
+# Temporary files
+*.cache
+*.log
+
+# SQLite temp files
+*.db-wal
+*.db-shm
+
+# Ignore database (optional)
+# *.db
