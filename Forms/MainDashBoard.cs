@@ -9,6 +9,8 @@ namespace JobPortalSystemProject.Forms
 {
     public partial class MainDashBoard : Form
     {
+
+        //Constructor
         public MainDashBoard()
         {
             InitializeComponent();
@@ -43,12 +45,15 @@ namespace JobPortalSystemProject.Forms
                 .GetTotalUsers()
                 .ToString();
 
+
+
             if (SessionManager.CurrentUser.Role == "Admin")
             {
                 pnlAllUser.Visible = true;
                 pnlAppliedJobs.Visible = false;
             }
-            else {
+            else
+            {
                 pnlAllUser.Visible = false;
                 pnlAppliedJobs.Visible = true;
             }
@@ -57,6 +62,8 @@ namespace JobPortalSystemProject.Forms
 
         }
 
+
+        //Form load 
         private void MainDashBoard_Load(object sender, EventArgs e)
         {
             JobRepository repository =
@@ -65,6 +72,7 @@ namespace JobPortalSystemProject.Forms
             List<Job> jobs =
                 repository.GetLatestJobs();
 
+            //to  add the values in the card 
             foreach (Job job in jobs)
             {
                 AddJobCard(

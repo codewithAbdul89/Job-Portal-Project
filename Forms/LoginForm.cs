@@ -31,8 +31,7 @@ namespace JobPortalSystemProject.Forms
                     txtPassword.Text.Trim();
 
                 // VALIDATION
-                if (email == "" ||
-                    password == "")
+                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 {
                     MessageBox.Show(
                         "Please enter email and password.",
@@ -70,13 +69,15 @@ namespace JobPortalSystemProject.Forms
                         user;
 
                     // HIDE LOGIN FORM
-                    this.Hide();
+
 
                     // OPEN DASHBOARD
                     AfterLoginForm dashboard =
                         new AfterLoginForm(user);
 
                     dashboard.Show();
+
+                    this.Hide();
                 }
             }
 
@@ -91,15 +92,15 @@ namespace JobPortalSystemProject.Forms
             }
         }
 
-        private void btnLogin_Click(object sender,EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             LoginUser();
         }
-       
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            WelcomeDashboard welcomeDashboard=new WelcomeDashboard();
+            WelcomeDashboard welcomeDashboard = new WelcomeDashboard();
             welcomeDashboard.Show();
             this.Hide();
         }
@@ -112,7 +113,7 @@ namespace JobPortalSystemProject.Forms
         }
 
         //Run login Function on Enter button
-         private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {

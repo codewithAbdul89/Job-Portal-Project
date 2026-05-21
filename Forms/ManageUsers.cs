@@ -225,7 +225,8 @@ namespace JobPortalSystemProject.Forms
         //btn to exit to afterLoginForm
         private void btnExit_Click(object sender, EventArgs e)
         {
-            
+            SessionManager.RefreshUser();
+
             AfterLoginForm afterLoginForm = new AfterLoginForm(SessionManager.CurrentUser);
             afterLoginForm.Show();
             // CLOSE CURRENT FORM

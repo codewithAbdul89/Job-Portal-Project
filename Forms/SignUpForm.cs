@@ -7,10 +7,13 @@ namespace JobPortalSystemProject.Forms
 {
     public partial class SignUpForm : Form
     {
+        //Constructor
         public SignUpForm()
         {
             InitializeComponent();
         }
+
+        //form load
         private void SignUpForm_Load(object sender, EventArgs e)
         {
             txtName.Focus();
@@ -40,9 +43,9 @@ namespace JobPortalSystemProject.Forms
                     txtPassword.Text.Trim();
 
                 // VALIDATION
-                if (name == "" ||
-                    email == "" ||
-                    password == "")
+                if (String.IsNullOrEmpty(name) ||
+                     String.IsNullOrEmpty(email) ||
+                     String.IsNullOrEmpty(password))
                 {
                     MessageBox.Show(
                         "Please fill all fields.",
@@ -53,6 +56,8 @@ namespace JobPortalSystemProject.Forms
 
                     return;
                 }
+
+                //To check email validatity
 
                 if (!email.Contains("@"))
                 {
@@ -65,6 +70,8 @@ namespace JobPortalSystemProject.Forms
 
                     return;
                 }
+
+                //create a user object to pass to 
 
                 User user = new User();
 
@@ -131,21 +138,22 @@ namespace JobPortalSystemProject.Forms
             }
         }
 
-        //signup btn 
+        //signup btn  to call the signUp function
         private void btnSigUp_Click(object sender, EventArgs e)
-        { 
+        {
             SignUpUser();
         }
 
-    
+
         //Exit Button
         private void btnExit_Click(object sender, EventArgs e)
         {
-            WelcomeDashboard welcomeDashboard=new WelcomeDashboard();
+            WelcomeDashboard welcomeDashboard = new WelcomeDashboard();
             welcomeDashboard.Show();
             this.Hide();
         }
 
+        //event on txtPassword 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
