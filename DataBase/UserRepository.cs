@@ -8,18 +8,18 @@ using System.Windows.Forms;
 
 namespace JobPortalSystemProject.DataBase
 {
-     
+
     /// Handles all database operations related to Users table.
     /// Inherits common database methods from BaseRepository.
-     
+
     public class UserRepository : BaseRepository
     {
-         
+
         /// Adds new user into database.
         /// Password is hashed before saving.
         /// Returns true if insert successful.
         /// Returns false if email already exists.
-         
+
         public bool SignUp(User user)
         {
             // SQL query to check if email already exists
@@ -44,13 +44,13 @@ namespace JobPortalSystemProject.DataBase
             // If email already exists
             if (existingUsers > 0)
             {
-               MessageBox.Show(
-                    "Email already exists. Please use a different email.",
-                    "Duplicate Email",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return false;   
+                MessageBox.Show(
+                     "Email already exists. Please use a different email.",
+                     "Duplicate Email",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Warning
+                 );
+                return false;
             }
 
             // Convert normal password into secure hashed password
@@ -86,11 +86,11 @@ namespace JobPortalSystemProject.DataBase
             return rowsAffected > 0;
         }
 
-         
+
         /// Checks login credentials.
         /// Returns matching User object if login successful.
         /// Returns null if email or password incorrect.
-         
+
         public User? Login(string email, string password)
         {
             // SQL query to get user by email
@@ -148,13 +148,13 @@ namespace JobPortalSystemProject.DataBase
             // If password incorrect
             if (!isPasswordCorrect)
             {
-               MessageBox.Show(
-                    "Incorrect password. Please try again.",
-                    "Login Failed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-                return null;    
+                MessageBox.Show(
+                     "Incorrect password. Please try again.",
+                     "Login Failed",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                 );
+                return null;
             }
 
             // Optional security step
@@ -165,10 +165,10 @@ namespace JobPortalSystemProject.DataBase
             return user;
         }
 
-         
+
         /// Returns all users from database.
         /// Password is not included for security reasons.
-         
+
         public List<User> GetAllUsers()
         {
             // SQL query
@@ -190,7 +190,7 @@ namespace JobPortalSystemProject.DataBase
                     Email = GetString(reader, "Email"),
 
                     Role = GetString(reader, "Role"),
-                    
+
                     Phone = GetString(reader, "Phone"),
 
                     Province = GetString(reader, "Province"),
@@ -201,11 +201,11 @@ namespace JobPortalSystemProject.DataBase
 
                     Experience = GetString(reader, "Experience"),
 
-                    PostalCode=
-                    GetString(reader,"PostalCode"),
+                    PostalCode =
+                    GetString(reader, "PostalCode"),
 
                     Gender = GetString
-                            (reader,"Gender")
+                            (reader, "Gender")
 
                 }
             );
@@ -246,7 +246,7 @@ namespace JobPortalSystemProject.DataBase
             return ExecuteNonQuery(sql, parameters) > 0;
         }
 
-        //get user by id from database
+        //get user by id from database used in sessionManger
         public User GetUserById(int id)
         {
             string sql =
@@ -297,7 +297,7 @@ namespace JobPortalSystemProject.DataBase
         }
 
         // UPDATE USER ROLE
-        public bool UpdateRole(int userId,string role)
+        public bool UpdateRole(int userId, string role)
         {
             // SQL QUERY
             string sql =

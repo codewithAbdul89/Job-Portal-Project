@@ -73,7 +73,7 @@ namespace JobPortalSystemProject.DataBase
             // Execute insert query
             return ExecuteNonQuery(sql, parameters) > 0;
         }
-//get all jobs
+        //get all jobs
         public List<Job> GetAllJobs()
         {
             string sql =
@@ -100,47 +100,8 @@ namespace JobPortalSystemProject.DataBase
                 }
             );
         }
-//to get the job by id
-        public Job? GetJobById(int id)
-        {
-            // SQL query
-            string sql =
-                @"SELECT JobId, Title, Company,
-          Location, Salary, Description
-
-          FROM Jobs
-
-          WHERE JobId = @JobId";
-
-            // Parameters
-            SQLiteParameter[] parameters =
-            {
-        new SQLiteParameter("@JobId", id)
-    };
-
-            // Execute query and return one Job object
-            return ExecuteSingle(
-                sql,
-
-                reader => new Job
-                {
-                    JobId = GetInt(reader, "JobId"),
-
-                    Title = GetString(reader, "Title"),
-
-                    Company = GetString(reader, "Company"),
-
-                    Location = GetString(reader, "Location"),
-
-                    Salary = GetString(reader, "Salary"),
-
-                    Description = GetString(reader, "Description")
-                },
-
-                parameters
-            );
-        }
-//To delete the job
+       
+        //To delete the job
         public bool deleteJob(int id)
         {
             string sql =
@@ -152,7 +113,7 @@ namespace JobPortalSystemProject.DataBase
             };
             return ExecuteNonQuery(sql, parameters) > 0;
         }
-//To update the jobs
+        //To update the jobs
         public bool updateJob(Job job)
         {
             string sql =
@@ -174,7 +135,8 @@ namespace JobPortalSystemProject.DataBase
             };
             return ExecuteNonQuery(sql, parameters) > 0;
         }
-//get all jobs count  from  dataBase
+
+        //get all jobs count  from  dataBase
         public int GetTotalJobs()
         {
             string sql =

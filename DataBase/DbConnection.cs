@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
 
 namespace JobPortalSystemProject.DataBase
 {
@@ -9,9 +10,10 @@ namespace JobPortalSystemProject.DataBase
         private static string _databasePath = string.Empty;
         private static string _dbConnectionString = string.Empty;
 
+        //provde database path
         public static string DataBasePath
         {
-            get
+            get //to get database path
             {
                 if (string.IsNullOrEmpty(_databasePath))
                 {
@@ -33,6 +35,8 @@ namespace JobPortalSystemProject.DataBase
             }
         }
 
+
+        //A line of text that tells your application how to connect to database
         public static string ConnectionString
         {
             get
@@ -52,25 +56,5 @@ namespace JobPortalSystemProject.DataBase
             return new SQLiteConnection(ConnectionString);
         }
 
-        public static bool TestConnection()
-        {
-            try
-            {
-                if (!File.Exists(DataBasePath))
-                    return false;
-
-                using (var conn = GetConnection())
-                {
-                    conn.Open();
-
-                    return conn.State ==
-                        System.Data.ConnectionState.Open;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
     }
 }

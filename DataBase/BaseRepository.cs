@@ -8,22 +8,16 @@ namespace JobPortalSystemProject.DataBase
     // Cannot create object directly
     public abstract class BaseRepository
     {
-        // Call ConnectionString property from DbConnection
-        protected string GetConnectionString()
-        {
-            return DbConnection.ConnectionString;
-        }
 
-        // Call GetConnection() method from DbConnection
+
+        // Call GetConnection() method from DbConnection to get connection string
         protected SQLiteConnection GetConnection()
         {
             return DbConnection.GetConnection();
         }
 
         // Executes INSERT, UPDATE, DELETE queries Returns affected rows count if count>0 mean our operation is successful
-        protected int ExecuteNonQuery(
-            string sql,
-            SQLiteParameter[]? parameters = null)
+        protected int ExecuteNonQuery(string sql, SQLiteParameter[]? parameters = null)
         {
             // Using automatically disposes memory/resources
             using (var conn = GetConnection())
@@ -44,9 +38,7 @@ namespace JobPortalSystemProject.DataBase
         }
 
         // Executes query returning single value like  COUNT,MAX,Min or use to check if email or something exists in database
-        protected object ExecuteScalar(
-            string sql,
-            SQLiteParameter[]? parameters = null)
+        protected object ExecuteScalar( string sql, SQLiteParameter[]? parameters = null)
         {
             using (var conn = GetConnection())
             {
@@ -65,40 +57,10 @@ namespace JobPortalSystemProject.DataBase
             }
         }
 
-        // Executes SELECT query and returns DataTable
-        protected DataTable ExecuteReader(
-            string sql,
-            SQLiteParameter[]? parameters = null)
-        {
-            DataTable dataTable = new DataTable();
+        // Safely gets string value from database reader like use to display all users in datagrid view
 
-            using (var conn = GetConnection())
-            {
-                conn.Open();
-
-                using (var cmd =
-                    new SQLiteCommand(sql, conn))
-                {
-                    if (parameters != null)
-                    {
-                        cmd.Parameters.AddRange(parameters);
-                    }
-
-                    using (var adapter =
-                        new SQLiteDataAdapter(cmd))
-                    {
-                        adapter.Fill(dataTable);
-                    }
-                }
-            }
-
-            return dataTable;
-        }
-
-        // Safely gets string value from database reader
-        protected string GetString(
-            SQLiteDataReader reader,//Reader represents:Current database row
-            string columnName)
+        //Reader represents:Current database row
+        protected string GetString( SQLiteDataReader reader,  string columnName)
         {
             int ordinal =
                 reader.GetOrdinal(columnName);//provide the index of the column based on its name for fast
@@ -109,9 +71,7 @@ namespace JobPortalSystemProject.DataBase
         }
 
         // Safely gets integer value from database reader
-        protected int GetInt(
-            SQLiteDataReader reader,
-            string columnName)
+        protected int GetInt(   SQLiteDataReader reader, string columnName)
         {
             int ordinal =
                 reader.GetOrdinal(columnName);
@@ -121,19 +81,7 @@ namespace JobPortalSystemProject.DataBase
                 : reader.GetInt32(ordinal);
         }
 
-        // Returns last inserted row ID only
-        protected long GetLastInsertRowId()
-        {
-            object result =
-                ExecuteScalar(
-                    "SELECT last_insert_rowid();");
-
-            return result != null
-                ? Convert.ToInt64(result)
-                : 0;
-        }
-
-
+      
         // Executes query and returns single object from database row. Used when only one row object is expected like getting user by email or id
         protected T ExecuteSingle<T>(
             string sql,

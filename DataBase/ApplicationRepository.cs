@@ -97,61 +97,6 @@ namespace JobPortalSystemProject.DataBase
             ) > 0;
         }
 
-        /// <summary>
-        /// Returns all applications.
-        /// </summary>
-        public List<Application> GetAllApplications()
-        {
-            // SQL query
-            string sql =
-                @"SELECT ApplicationId,
-                         UserId,
-                         JobId,
-                         ApplyDate,
-                         Status
-
-                  FROM Applications";
-
-            // Return list of applications
-            return ExecuteList(
-                sql,
-
-                reader => new Application
-                {
-                    ApplicationId =
-                        GetInt(
-                            reader,
-                            "ApplicationId"
-                        ),
-
-                    UserId =
-                        GetInt(
-                            reader,
-                            "UserId"
-                        ),
-
-                    JobId =
-                        GetInt(
-                            reader,
-                            "JobId"
-                        ),
-
-                    ApplyDate =
-                        DateTime.Parse(
-                            GetString(
-                                reader,
-                                "ApplyDate"
-                            )
-                        ),
-
-                    Status =
-                        GetString(
-                            reader,
-                            "Status"
-                        )
-                }
-            );
-        }
 
         /// <summary>
         /// Returns all applications
@@ -299,7 +244,7 @@ namespace JobPortalSystemProject.DataBase
         }
 
 
-        // GET ALL APPLICATIONS + USER NAME + JOB TITLE + COMPANY + LOCATION + STATUS with inner join
+        // GET ALL APPLICATIONS + USER NAME + JOB TITLE + COMPANY + LOCATION + STATUS with inner join all tavles
         public object GetAllApplicationsToUpdateStatus()
         {
             // SQL QUERY
